@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>To-Do List - Sequelize</title>
+</head>
+
+<body>
+    <h1>TO-DO LIST</h1>
+    <form action="/todolist" method="post">
+        <input type="text" name="todoItem" placeholder="My Next Item To Do">
+        <input type="submit" value="Add"> <br> <br>
+    </form>
+    {{#todoList}} {{#toDoItem}}
+    <form action="/todonelist" method="post">
+        <button type="submit" name="id" value={{id}}>Mark Complete</button> {{toDoItem}} <br> <br>
+    </form>
+    {{/toDoItem}} {{/todoList}} {{#todoneList}} {{toDoneItem}} <br> {{/todoneList}}
+</body>
+
+</html>

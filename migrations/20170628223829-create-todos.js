@@ -1,17 +1,23 @@
-'use strict';
+"use strict";
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('todoLists', {
+    return queryInterface.createTable("todos", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      todoItem: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      description: {
+        allowNull: true,
         type: Sequelize.STRING
       },
       completed: {
+        defaultValue: "f",
         type: Sequelize.BOOLEAN
       },
       createdAt: {
@@ -25,6 +31,6 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('todoLists');
+    return queryInterface.dropTable("todos");
   }
 };
