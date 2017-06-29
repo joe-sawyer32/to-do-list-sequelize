@@ -19,9 +19,9 @@ app.use(logger("dev"));
 
 app.get("/", (req, res) => {
   models.todos
-    .findAll({ where: { completed: "f" } })
-    .then(foundTodos => {
-      res.render("index", { todoList: foundTodos });
+    .findAll()
+    .then(foundItems => {
+      res.render("index", { todoList: foundItems });
     })
     .catch(error => {
       res.status(500).send(error);
@@ -41,9 +41,42 @@ app.post("/todolist", (req, res) => {
     });
 });
 
-// app.post("/todonelist", (req, res) => {
-
-// });
+app.post("/editlist", (req, res) => {
+  var rowId;
+  if (req.body.edit) {
+    rowId = req.body.edit;
+    models.todos
+      .findById(rowId)
+      .then(foundItem => {
+        // res.send(foundItem);
+        res.render("editing", { editTodo: foundItem });
+      })
+      .catch(error => {
+        res.status(500).send(error);
+      });
+    // } else if (req.body.complete) {
+    //   } else if (req.body.remove) {
+  } else if (req.body.update) {
+    rowId = req.body.update;
+    models.todos
+      .update(
+        {
+          todoItem: req.body.todoItem
+        },
+        {
+          where: {
+            id: rowId
+          }
+        }
+      )
+      .then(addedTodo => {
+        res.redirect("/");
+      })
+      .catch(error => {
+        res.status(500).send(error);
+      });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Spinning with express: Port ${port}`);

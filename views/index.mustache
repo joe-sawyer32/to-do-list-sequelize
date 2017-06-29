@@ -15,8 +15,10 @@
         <input type="submit" value="Add"> <br> <br>
     </form>
     {{#todoList}} {{#todoItem}}
-    <form action="/todonelist" method="post">
-        <button type="submit" name="id" value={{id}}>Mark Complete</button> {{todoItem}} <br> <br>
+    <form action="/editlist" method="post">
+        <button type="submit" name="edit" value={{id}}>Edit</button>
+        <button type="submit" name="complete" value={{id}}>Mark Complete</button> {{todoItem}}
+        <button type="submit" name="remove" value={{id}}>Remove</button> <br> <br>
     </form>
     {{/todoItem}} {{/todoList}} {{#todoneList}} {{toDoneItem}} <br> {{/todoneList}}
 </body>
