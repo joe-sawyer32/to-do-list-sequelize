@@ -13,17 +13,12 @@
 <body>
     <div class="display">
         <h1>TO-DO LIST</h1>
-        <div class="itemToEdit">
             {{#editTodo}}
-                <form action="/editlist" method="post">
-                    <input type="text" name="todoItem" value="{{todoItem}}">
-                    <button type="submit" name="update" value={{id}}>Update</button>
+                <form class="updateTodoForm" action="/editlist" method="post">
+                    <input type="text" class="todoUpdate" name="todoItem" value="{{todoItem}}">
+                    <button type="submit" class="updateTodo" name="update" value={{id}}>Update</button>
                 </form>
-                <form action="/" method="get">
-                    <button type="submit" name="cancel" value={{id}}>Cancel</button>
-                </form> <br> <br>
             {{/editTodo}}
-        </div>
         <div class="background">
             {{#todoList}}
                 {{^completed}}

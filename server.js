@@ -49,6 +49,8 @@ app.post("/editlist", (req, res) => {
     models.todos
       .findAll()
       .then(foundItems => {
+        console.log(foundItems[rowId]);
+        console.log("row id: ", rowId);
         res.render("editing", {
           todoList: foundItems,
           editTodo: foundItems[rowId]

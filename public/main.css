@@ -15,17 +15,24 @@ h1 {
   border-bottom: 2px solid black;
 }
 
-.addTodoForm {
+.addTodoForm,
+.updateTodoForm {
   display: flex;
   align-items: center;
 }
 
-.todoInput {
+.updateTodoForm {
+  border: 2px solid black;
+}
+
+.todoInput,
+.todoUpdate {
   flex: 8;
   margin: 1rem;
 }
 
-.addTodo {
+.addTodo,
+.updateTodo {
   flex: 1;
   margin: 1rem;
 }
@@ -35,8 +42,10 @@ h1 {
 }
 
 .todoInput,
+.todoUpdate,
 .editTodo,
-.addTodo {
+.addTodo,
+.updateTodo {
   font-family: 'Glegoo', serif;
   text-transform: uppercase;
 }
@@ -55,6 +64,7 @@ h1 {
   margin: 0 1rem;
 }
 
-.itemToEdit {
-  border: 2px solid black;
+.background {
+  color: transparent;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
 }
