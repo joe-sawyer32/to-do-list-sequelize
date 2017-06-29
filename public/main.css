@@ -1,0 +1,60 @@
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.display {
+  font-family: 'Glegoo', serif;
+  text-transform: uppercase;
+  width: 40vw;
+  line-height: 1.9;
+}
+
+h1 {
+  text-align: center;
+  border-bottom: 2px solid black;
+}
+
+.addTodoForm {
+  display: flex;
+  align-items: center;
+}
+
+.todoInput {
+  flex: 8;
+  margin: 1rem;
+}
+
+.addTodo {
+  flex: 1;
+  margin: 1rem;
+}
+
+.todoItem {
+  margin: 0 .5rem;
+}
+
+.todoInput,
+.editTodo,
+.addTodo {
+  font-family: 'Glegoo', serif;
+  text-transform: uppercase;
+}
+
+.buttonsAndItem {
+  display: flex;
+  align-items: center;
+}
+
+.editTodo {
+  margin: .5rem;
+}
+
+.completedItem {
+  text-decoration-line: line-through;
+  margin: 0 1rem;
+}
+
+.itemToEdit {
+  border: 2px solid black;
+}

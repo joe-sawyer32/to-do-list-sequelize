@@ -5,22 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Glegoo" rel="stylesheet">
+    <link rel="stylesheet" href="/main.css">
     <title>To-Do List - Sequelize</title>
 </head>
 
 <body>
-    <h1>TO-DO LIST</h1>
-    <form action="/todolist" method="post">
-        <input type="text" name="todoItem" placeholder="My Next Item To Do">
-        <input type="submit" value="Add"> <br> <br>
-    </form>
-    {{#todoList}} {{#todoItem}}
-    <form action="/editlist" method="post">
-        <button type="submit" name="edit" value={{id}}>Edit</button>
-        <button type="submit" name="complete" value={{id}}>Mark Complete</button> {{todoItem}}
-        <button type="submit" name="remove" value={{id}}>Remove</button> <br> <br>
-    </form>
-    {{/todoItem}} {{/todoList}} {{#todoneList}} {{toDoneItem}} <br> {{/todoneList}}
+    <div class="display">
+        <h1>TO-DO LIST</h1>
+        <form class="addTodoForm" action="/todolist" method="post">
+            <input type="text" class="todoInput" name="todoItem" placeholder="My Next Item To Do">
+            <button type="submit" class="addTodo">Add</button> <br> <br>
+        </form>
+        {{#todoList}}
+            {{^completed}}
+                <form class="buttonsAndItem" action="/editlist" method="post">
+                    <button type="submit" class="editTodo" name="edit" value={{id}}>Edit</button>
+                    <button type="submit" class="editTodo" name="complete" value={{id}}>Mark Complete</button>
+                    <h3 class="todoItem">{{todoItem}}</h3>
+                    <button type="submit" class="editTodo" name="remove" value={{id}}>Remove</button> <br> <br>
+                </form>
+            {{/completed}}
+        {{/todoList}}
+        <hr class="listDivider">
+        {{#todoList}}
+            {{#completed}}
+                <h4 class="completedItem">{{todoItem}}</h4>
+            {{/completed}}
+        {{/todoList}}
+    </div>
 </body>
 
 </html>

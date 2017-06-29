@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const port = process.env.port || 8080;
+const path = require("path");
 
 const models = require("./models");
 const mustacheExpress = require("mustache-express");
@@ -10,16 +11,16 @@ const logger = require("morgan");
 // SET VIEW ENGINE
 app.engine("mustache", mustacheExpress());
 app.set("view engine", "mustache");
-app.set("views", "./views");
+app.set("views", path.join(__dirname, "/views"));
 
 // MIDDLEWARE
-app.use("/", express.static("/public"));
+app.use("/", express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger("dev"));
 
 app.get("/", (req, res) => {
   models.todos
-    .findAll()
+    .findAll({ order: [["createdAt", "DESC"]] })
     .then(foundItems => {
       res.render("index", { todoList: foundItems });
     })
@@ -46,16 +47,35 @@ app.post("/editlist", (req, res) => {
   if (req.body.edit) {
     rowId = req.body.edit;
     models.todos
-      .findById(rowId)
-      .then(foundItem => {
-        // res.send(foundItem);
-        res.render("editing", { editTodo: foundItem });
+      .findAll()
+      .then(foundItems => {
+        res.render("editing", {
+          todoList: foundItems,
+          editTodo: foundItems[rowId]
+        });
       })
       .catch(error => {
         res.status(500).send(error);
       });
-    // } else if (req.body.complete) {
-    //   } else if (req.body.remove) {
+  } else if (req.body.complete) {
+    rowId = req.body.complete;
+    models.todos
+      .update(
+        {
+          completed: "t"
+        },
+        {
+          where: {
+            id: rowId
+          }
+        }
+      )
+      .then(addedTodo => {
+        res.redirect("/");
+      })
+      .catch(error => {
+        res.status(500).send(error);
+      });
   } else if (req.body.update) {
     rowId = req.body.update;
     models.todos
@@ -70,6 +90,16 @@ app.post("/editlist", (req, res) => {
         }
       )
       .then(addedTodo => {
+        res.redirect("/");
+      })
+      .catch(error => {
+        res.status(500).send(error);
+      });
+  } else if (req.body.remove) {
+    rowId = req.body.remove;
+    models.todos
+      .destroy({ where: { id: rowId } })
+      .then(() => {
         res.redirect("/");
       })
       .catch(error => {
