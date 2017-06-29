@@ -14,11 +14,11 @@
         <input type="text" name="todoItem" placeholder="My Next Item To Do">
         <input type="submit" value="Add"> <br> <br>
     </form>
-    {{#todoList}} {{#toDoItem}}
+    {{#todoList}} {{#todoItem}}
     <form action="/todonelist" method="post">
-        <button type="submit" name="id" value={{id}}>Mark Complete</button> {{toDoItem}} <br> <br>
+        <button type="submit" name="id" value={{id}}>Mark Complete</button> {{todoItem}} <br> <br>
     </form>
-    {{/toDoItem}} {{/todoList}} {{#todoneList}} {{toDoneItem}} <br> {{/todoneList}}
+    {{/todoItem}} {{/todoList}} {{#todoneList}} {{toDoneItem}} <br> {{/todoneList}}
 </body>
 
 </html>

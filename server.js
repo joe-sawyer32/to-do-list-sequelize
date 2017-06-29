@@ -18,7 +18,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger("dev"));
 
 app.get("/", (req, res) => {
-  res.render("index");
+  models.todos
+    .findAll({ where: { completed: "f" } })
+    .then(foundTodos => {
+      res.render("index", { todoList: foundTodos });
+    })
+    .catch(error => {
+      res.status(500).send(error);
+    });
 });
 
 app.post("/todolist", (req, res) => {
@@ -27,7 +34,7 @@ app.post("/todolist", (req, res) => {
   newTodo
     .save()
     .then(addedTodo => {
-      res.send(addedTodo);
+      res.redirect("/");
     })
     .catch(error => {
       res.status(500).send(error);
