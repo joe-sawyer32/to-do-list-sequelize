@@ -42,72 +42,83 @@ app.post("/todolist", (req, res) => {
     });
 });
 
-app.post("/editlist", (req, res) => {
-  var rowId;
-  if (req.body.edit) {
-    rowId = req.body.edit;
-    models.todos
-      .findAll()
-      .then(foundItems => {
-        console.log(foundItems[rowId]);
-        console.log("row id: ", rowId);
-        res.render("editing", {
-          todoList: foundItems,
-          editTodo: foundItems[rowId]
+app.post("/edit", (req, res) => {
+  var rowId = req.body.edit;
+  models.todos
+    .findAll({ order: [["createdAt", "DESC"]] })
+    .then(foundItems => {
+      console.log("row id: ", rowId);
+      models.todos
+        .findById(rowId)
+        .then(foundEditItem => {
+          console.log("all items: ", foundItems);
+          console.log("edit item: ", foundEditItem);
+          return res.render("editing", {
+            todoList: foundItems,
+            editTodo: foundEditItem
+          });
+        })
+        .catch(error => {
+          res.status(500).send(error);
         });
-      })
-      .catch(error => {
-        res.status(500).send(error);
-      });
-  } else if (req.body.complete) {
-    rowId = req.body.complete;
-    models.todos
-      .update(
-        {
-          completed: "t"
-        },
-        {
-          where: {
-            id: rowId
-          }
+    })
+    .catch(error => {
+      res.status(500).send(error);
+    });
+});
+
+app.post("/complete", (req, res) => {
+  var rowId = req.body.complete;
+  models.todos
+    .update(
+      {
+        completed: "t"
+      },
+      {
+        where: {
+          id: rowId
         }
-      )
-      .then(addedTodo => {
-        res.redirect("/");
-      })
-      .catch(error => {
-        res.status(500).send(error);
-      });
-  } else if (req.body.update) {
-    rowId = req.body.update;
-    models.todos
-      .update(
-        {
-          todoItem: req.body.todoItem
-        },
-        {
-          where: {
-            id: rowId
-          }
+      }
+    )
+    .then(addedTodo => {
+      res.redirect("/");
+    })
+    .catch(error => {
+      res.status(500).send(error);
+    });
+});
+
+app.post("/update", (req, res) => {
+  var rowId = req.body.update;
+  models.todos
+    .update(
+      {
+        todoItem: req.body.todoItem
+      },
+      {
+        where: {
+          id: rowId
         }
-      )
-      .then(addedTodo => {
-        res.redirect("/");
-      })
-      .catch(error => {
-        res.status(500).send(error);
-      });
-  } else if (req.body.remove) {
-    rowId = req.body.remove;
-    models.todos
-      .destroy({ where: { id: rowId } })
-      .then(() => {
-        res.redirect("/");
-      })
-      .catch(error => {
-        res.status(500).send(error);
-      });
-  }
+      }
+    )
+    .then(addedTodo => {
+      res.redirect("/");
+    })
+    .catch(error => {
+      res.status(500).send(error);
+    });
+});
+
+app.post("/remove", (req, res) => {
+  var rowId = req.body.remove;
+  models.todos
+    .destroy({ where: { id: rowId } })
+    .then(() => {
+      res.redirect("/");
+    })
+    .catch(error => {
+      res.status(500).send(error);
+    });
 });
 
 app.listen(port, () => {

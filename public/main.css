@@ -13,6 +13,7 @@ body {
 h1 {
   text-align: center;
   border-bottom: 2px solid black;
+  margin-bottom: 1rem;
 }
 
 .addTodoForm,
@@ -22,7 +23,7 @@ h1 {
 }
 
 .updateTodoForm {
-  border: 2px solid black;
+  border: 2px dashed black;
 }
 
 .todoInput,
@@ -64,7 +65,12 @@ h1 {
   margin: 0 1rem;
 }
 
-.background {
+.background,
+.background .editTodo {
   color: transparent;
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+.listDivider {
+  margin: 1rem 0;
 }

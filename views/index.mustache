@@ -17,14 +17,21 @@
             <input type="text" class="todoInput" name="todoItem" placeholder="My Next Item To Do">
             <button type="submit" class="addTodo">Add</button> <br> <br>
         </form>
+        <hr class="listDivider">
         {{#todoList}}
             {{^completed}}
-                <form class="buttonsAndItem" action="/editlist" method="post">
+            <div class="buttonsAndItem">
+                <form class="editTodoForm" action="/edit" method="post">
                     <button type="submit" class="editTodo" name="edit" value={{id}}>Edit</button>
-                    <button type="submit" class="editTodo" name="complete" value={{id}}>Mark Complete</button>
-                    <h3 class="todoItem">{{todoItem}}</h3>
-                    <button type="submit" class="editTodo" name="remove" value={{id}}>Remove</button> <br> <br>
                 </form>
+                <form class="editTodoForm" action="/complete" method="post">
+                    <button type="submit" class="editTodo" name="complete" value={{id}}>Mark Complete</button>
+                </form>
+                <h3 class="todoItem">{{todoItem}}</h3>
+                <form class="editTodoForm" action="/remove" method="post">
+                    <button type="submit" class="editTodo" name="remove" value={{id}}>Remove</button>
+                </form>
+            </div>
             {{/completed}}
         {{/todoList}}
         <hr class="listDivider">
