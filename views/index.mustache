@@ -37,9 +37,12 @@
         <hr class="listDivider">
         {{#todoList}}
             {{#completed}}
-                <h4 class="completedItem">{{todoItem}}</h4>
+                <h4 class="todoneItem">{{todoItem}}</h4>
             {{/completed}}
         {{/todoList}}
+        <form class="deleteTodonesForm" action="/delete" method="post">
+            <button type="submit" class="deleteTodones" name="delete">Remove Completed Items</button>
+        </form> 
     </div>
 </body>
 

@@ -121,6 +121,17 @@ app.post("/remove", (req, res) => {
     });
 });
 
+app.post("/delete", (req, res) => {
+  models.todos
+    .destroy({ where: { completed: "t" } })
+    .then(() => {
+      res.redirect("/");
+    })
+    .catch(error => {
+      res.status(500).send(error);
+    });
+});
+
 app.listen(port, () => {
   console.log(`Spinning with express: Port ${port}`);
 });
